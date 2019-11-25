@@ -1,15 +1,14 @@
-# homebridge-mi-flower-care
+# homebridge-mi-flora-filtered
 
 
-[![NPM version](https://badge.fury.io/js/homebridge-mi-flower-care.svg)](https://npmjs.org/package/homebridge-mi-flower-care)
-[![Dependency Status](https://david-dm.org/honkmaster/homebridge-mi-flower-care.svg)](https://david-dm.org/honkmaster/homebridge-mi-flower-care) 
+[![NPM version](https://badge.fury.io/js/homebridge-mi-flora-filtered.svg)](https://npmjs.org/package/homebridge-mi-flora-filtered)
 ![License](https://img.shields.io/badge/license-ISC-lightgrey.svg)
-[![Downloads](https://img.shields.io/npm/dm/homebridge-mi-flower-care.svg)](https://npmjs.org/package/homebridge-mi-flower-care)
+[![Downloads](https://img.shields.io/npm/dm/homebridge-mi-flora-filtered.svg)](https://npmjs.org/package/homebridge-mi-flora-filtered)
 
 This is a [Homebridge](https://github.com/nfarina/homebridge) plugin for exposing the Xiaomi Flower Care / Flower Mate / Flower Monitor / Mi Flora devices to HomeKit. Historical display of temperature / moisture data is available via HomeKit apps that support graphing (e.g. Elgato Eve).
 
 ### Additional functionality
-In this fork of homebridge-mi-flora, the data is first filtered with a moving-median filter to filter out read errors. This is fixed with in this fork. Due to the median filter, the moving-median package is necessary. It should be installed automatically as dependency, but can be manually installed with:
+In this fork of homebridge-mi-flora, the data is first filtered with a moving-median filter to remove read errors. This is fixed with in this fork. Due to the median filter, the moving-median package is necessary. It should be installed automatically as dependency, but can be manually installed with:
 
 ```
 (sudo) npm install -g moving-median
@@ -30,6 +29,16 @@ This plugin is using [node-mi-flora](https://github.com/demirhanaydin/node-mi-fl
 (sudo) apt-get install bluetooth bluez libbluetooth-dev libudev-dev
 ```
 
+It is recommended to install [noble](https://github.com/noble/noble), [node-gyp](https://github.com/nodejs/node-gyp) and [bluetooth-hci-socket](https://github.com/noble/node-bluetooth-hci-socket) manually with the following commands:
+
+```
+sudo npm install --unsafe-perm -g bluetooth-hci-socket
+sudo npm install -g --unsafe-perm noble
+sudo npm install -g --unsafe-perm node-gyp
+```
+
+Due to a bug in the [Noble](https://github.com/noble/noble) package, the maximum working version of Nodejs is 9.11.2.
+
 For more details and descriptions for other platforms see the [Noble documentation](https://github.com/noble/noble#readme).
 
 #### MAC address
@@ -39,7 +48,7 @@ Ensure you know the MAC address of your Xiaomi Flower Care. You can use `hcitool
 ### npm
 
 ```
-(sudo) npm install -g --unsafe-perm homebridge-mi-flower-care
+(sudo) npm install -g --unsafe-perm homebridge-mi-flora-filtered
 ```
 
 ## Example Configuration
