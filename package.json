@@ -1,34 +1,36 @@
 {
-    "name": "homebridge-mi-flower-care",
-    "version": "1.1.0",
-    "description": "This is a homebridge plugin for the Xiaomi Mi Flora / Xiaomi Flower Care devices.",
+    "name": "homebridge-mi-flora",
+    "version": "1.2.0",
+    "description": "This is fork of the homebridge plugin for the Xiaomi Mi Flora / Xiaomi Flower Care devices. The original authors are Luca Becker, Tobias Tiemerding. In this version the data is filtered to reduce the number of read errors.",
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/honkmaster/homebridge-mi-flower-care.git"
+        "url": "git+https://github.com/Martvvliet/homebridge-mi-flora.git"
     },
     "keywords": [
         "homebridge",
         "homebridge-plugin",
         "HomeKit",
         "xiaomi",
-        "flower"
+        "flower",
+        "mi-flora"
     ],
-    "author": "Luca Becker, Tobias Tiemerding",
+    "author": "Luca Becker, Tobias Tiemerding, Mart van Vliet",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/honkmaster/homebridge-mi-flower-care/issues"
+        "url": "https://github.com/Martvvliet/homebridge-mi-flora/issues"
     },
-    "homepage": "https://github.com/honkmaster/homebridge-mi-flower-care#readme",
+    "homepage": "https://github.com/Martvvliet/homebridge-mi-flora#readme",
     "engines" : {
-        "node": ">=0.12.0",
+        "node": ">=0.12.0 <10.0.0",
         "homebridge": ">=0.2.0"
     },
     "dependencies" :{
         "node-mi-flora" : "0.1.1",
-        "fakegato-history": "^0.5.2"
+        "fakegato-history": "^0.5.2",
+        "moving-median": "^1.0.0"
     }
 }

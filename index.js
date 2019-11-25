@@ -5,6 +5,7 @@ var inherits = require('util').inherits;
 var os = require("os");
 var hostname = os.hostname();
 
+// Median filter for filtering the read errors.
 var createMedianFilter = require('moving-median')
 
 var windowsSize = 3;

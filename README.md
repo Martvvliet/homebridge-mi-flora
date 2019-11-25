@@ -8,6 +8,13 @@
 
 This is a [Homebridge](https://github.com/nfarina/homebridge) plugin for exposing the Xiaomi Flower Care / Flower Mate / Flower Monitor / Mi Flora devices to HomeKit. Historical display of temperature / moisture data is available via HomeKit apps that support graphing (e.g. Elgato Eve).
 
+### Additional functionality
+In this fork of homebridge-mi-flora, the data is first filtered with a moving-median filter to filter out read errors. This is fixed with in this fork. Due to the median filter, the moving-median package is necessary. It should be installed automatically as dependency, but can be manually installed with:
+
+```
+(sudo) npm install -g moving-median
+```
+
 <img src=https://raw.githubusercontent.com/honkmaster/homebridge-mi-flower-care/master/images/flower_care.jpg />
 
 
