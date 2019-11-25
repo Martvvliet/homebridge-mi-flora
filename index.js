@@ -5,6 +5,13 @@ var inherits = require('util').inherits;
 var os = require("os");
 var hostname = os.hostname();
 
+var createMedianFilter = require('moving-median')
+
+var windowsSize = 3;
+var medianTemperature = createMedianFilter(windowsSize);
+var medianMoisture = createMedianFilter(windowsSize);
+var medianFertility = createMedianFilter(windowsSize);
+
 module.exports = function (homebridge) {
     Service = homebridge.hap.Service;
     Characteristic = homebridge.hap.Characteristic;
@@ -176,16 +183,17 @@ MiFlowerCarePlugin.prototype.getCurrentAmbientLightLevel = function (callback) {
     callback(null, this.storedData.data ? this.storedData.data.lux : 0);
 };
 
+
 MiFlowerCarePlugin.prototype.getCurrentTemperature = function (callback) {
-    callback(null, this.storedData.data ? this.storedData.data.temperature : 0);
+    callback(null, this.storedData.data ? medianTemperature(this.storedData.data.temperature) : 0);
 };
 
 MiFlowerCarePlugin.prototype.getCurrentMoisture = function (callback) {
-    callback(null, this.storedData.data ? this.storedData.data.moisture : 0);
+    callback(null, this.storedData.data ? medianMoisture(this.storedData.data.moisture) : 0);
 };
 
 MiFlowerCarePlugin.prototype.getCurrentFertility = function (callback) {
-    callback(null, this.storedData.data ? this.storedData.data.fertility : 0);
+    callback(null, this.storedData.data ? medianFertility(this.storedData.data.fertility) : 0);
 };
 
 
