@@ -19,7 +19,7 @@ module.exports = function (homebridge) {
     HomebridgeAPI = homebridge;
     FakeGatoHistoryService = require("fakegato-history")(homebridge);
 
-    homebridge.registerAccessory("homebridge-mi-flower-care", "mi-flower-care", MiFlowerCarePlugin);
+    homebridge.registerAccessory("homebridge-mi-flora-filtered", "mi-flower-care", MiFlowerCarePlugin);
 };
 
 
