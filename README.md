@@ -2,7 +2,7 @@
 
 
 [![NPM version](https://badge.fury.io/js/homebridge-mi-flora-filtered.svg)](https://npmjs.org/package/homebridge-mi-flora-filtered)
-![License](https://img.shields.io/badge/license-ISC-lightgrey.svg)
+![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)
 [![Downloads](https://img.shields.io/npm/dm/homebridge-mi-flora-filtered.svg)](https://npmjs.org/package/homebridge-mi-flora-filtered)
 
 This is a [Homebridge](https://github.com/nfarina/homebridge) plugin for exposing the Xiaomi Flower Care / Flower Mate / Flower Monitor / Mi Flora devices to HomeKit. Historical display of temperature / moisture data is available via HomeKit apps that support graphing (e.g. Elgato Eve).
