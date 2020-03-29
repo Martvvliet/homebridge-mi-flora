@@ -1,4 +1,4 @@
-var MiFlora = require('node-mi-flora');
+var MiFlora = require('node-mi-flora-classic-updated');
 
 var Service, Characteristic, HomebridgeAPI, FakeGatoHistoryService;
 var inherits = require('util').inherits;
