@@ -5,7 +5,7 @@
 ![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)
 [![Downloads](https://img.shields.io/npm/dm/homebridge-mi-flora-filtered.svg)](https://npmjs.org/package/homebridge-mi-flora-filtered)
 
-This is a [Homebridge](https://github.com/nfarina/homebridge) plugin for exposing the Xiaomi Flower Care / Flower Mate / Flower Monitor / Mi Flora devices to HomeKit. Historical display of temperature / moisture data is available via HomeKit apps that support graphing (e.g. Elgato Eve).
+This is a [Homebridge](https://github.com/nfarina/homebridge) plugin for exposing the Xiaomi Flower Care / Flower Mate / Flower Monitor / Mi Flora devices to HomeKit. Historical display of temperature / moisture data is available via HomeKit apps that support graphing (e.g. Elgato Eve). 
 
 ### Additional functionality
 In this fork of homebridge-mi-flora, the data is first filtered with a moving-median filter to remove read errors. This is fixed with in this fork. Due to the median filter, the moving-median package is necessary. It should be installed automatically as dependency, but can be manually installed with:
@@ -23,23 +23,21 @@ In this fork of homebridge-mi-flora, the data is first filtered with a moving-me
 
 #### System dependencies
 
-This plugin is using [node-mi-flora](https://github.com/demirhanaydin/node-mi-flora) / [Noble](https://github.com/noble/noble) in the background with the same package dependencies. You can install these dependencies using `apt-get`, if not already done.
+This plugin is using [node-mi-flora](https://github.com/demirhanaydin/node-mi-flora) / [@abandonware/noble](https://github.com/abandonware/noble) in the background with the same package dependencies. @abandonware/noble is a version of noble that has support for Node 10+. To be able to use this version of Noble, I had to create a fork of the node-mi-flora with support for this version of Noble. 
+
+You can install the following dependencies using `apt-get`, if not already done.
 
 ```
 (sudo) apt-get install bluetooth bluez libbluetooth-dev libudev-dev
 ```
 
-It is recommended to install [noble](https://github.com/noble/noble), [node-gyp](https://github.com/nodejs/node-gyp) and [bluetooth-hci-socket](https://github.com/noble/node-bluetooth-hci-socket) manually with the following commands:
+It is recommended to install [@abandonware/noble](https://github.com/abandonware/noble), [node-gyp](https://github.com/nodejs/node-gyp) and [bluetooth-hci-socket](https://github.com/noble/node-bluetooth-hci-socket) manually with the following commands:
 
 ```
 sudo npm install --unsafe-perm -g bluetooth-hci-socket
-sudo npm install -g --unsafe-perm noble
+sudo npm install -g --unsafe-perm @abandonware/noble
 sudo npm install -g --unsafe-perm node-gyp
 ```
-
-Due to a bug in the [Noble](https://github.com/noble/noble) package, the maximum working version of Nodejs is 9.11.2.
-
-For more details and descriptions for other platforms see the [Noble documentation](https://github.com/noble/noble#readme).
 
 #### MAC address
 
