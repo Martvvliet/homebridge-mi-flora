@@ -18,6 +18,7 @@ module.exports = function (homebridge) {
     Characteristic = homebridge.hap.Characteristic;
     HomebridgeAPI = homebridge;
     FakeGatoHistoryService = require("fakegato-history")(homebridge);
+	UUIDGen = homebridge.hap.uuid;
 
     homebridge.registerAccessory("homebridge-mi-flora-filtered", "mi-flower-care", MiFlowerCarePlugin);
 };
@@ -59,6 +60,11 @@ function MiFlowerCarePlugin(log, config) {
         if (data.deviceId = that.deviceId) {
             that.log("Lux: %s, Temperature: %s, Moisture: %s, Fertility: %s", data.lux, data.temperature, data.moisture, data.fertility);
             that.storedData.data = data;
+            
+            if (data.moisture > 100)
+                return;
+            if (data.temperature > 100)
+                return;
 
             that.fakeGatoHistoryService.addEntry({
                 time: new Date().getTime() / 1000,
@@ -199,6 +205,12 @@ MiFlowerCarePlugin.prototype.getCurrentFertility = function (callback) {
 
 
 MiFlowerCarePlugin.prototype.setUpServices = function () {
+    this.moistureUUID = UUIDGen.generate(this.name+this.deviceId+"moisture");
+    this.soilFertilityUUID = UUIDGen.generate(this.name+this.deviceId+"soilFertility");
+    this.plantSensorUUID = UUIDGen.generate(this.name+this.deviceId+"plantSensor");
+    this.log(this.moistureUUID);
+    this.log(this.soilFertilityUUID);
+    this.log(this.plantSensorUUID);
     // info service
     this.informationService = new Service.AccessoryInformation();
 
@@ -268,7 +280,7 @@ MiFlowerCarePlugin.prototype.setUpServices = function () {
 
     // moisture characteristic
     SoilMoisture = function () {
-        Characteristic.call(this, 'Soil Moisture', 'C160D589-9510-4432-BAA6-5D9D77957138');
+        Characteristic.call(this, 'Soil Moisture', this.moistureUUID);
         this.setProps({
             format: Characteristic.Formats.UINT8,
             unit: Characteristic.Units.PERCENTAGE,
@@ -282,12 +294,12 @@ MiFlowerCarePlugin.prototype.setUpServices = function () {
 
     inherits(SoilMoisture, Characteristic);
 
-    SoilMoisture.UUID = 'C160D589-9510-4432-BAA6-5D9D77957138';
+    SoilMoisture.UUID = this.moistureUUID;
 
 
     // fertility characteristic
     SoilFertility = function () {
-        Characteristic.call(this, 'Soil Fertility', '0029260E-B09C-4FD7-9E60-2C60F1250618');
+        Characteristic.call(this, 'Soil Fertility', this.soilFertilityUUID);
         this.setProps({
             format: Characteristic.Formats.UINT8,
             maxValue: 10000,
@@ -300,12 +312,12 @@ MiFlowerCarePlugin.prototype.setUpServices = function () {
 
     inherits(SoilFertility, Characteristic);
 
-    SoilFertility.UUID = '0029260E-B09C-4FD7-9E60-2C60F1250618';
+    SoilFertility.UUID = this.soilFertilityUUID;
 
 
     // moisture sensor
     PlantSensor = function (displayName, subtype) {
-        Service.call(this, displayName, '3C233958-B5C4-4218-A0CD-60B8B971AA0A', subtype);
+        Service.call(this, displayName, this.plantSensorUUID, subtype);
 
         // Required Characteristics
         this.addCharacteristic(SoilMoisture);
@@ -317,7 +329,7 @@ MiFlowerCarePlugin.prototype.setUpServices = function () {
 
     inherits(PlantSensor, Service);
 
-    PlantSensor.UUID = '3C233958-B5C4-4218-A0CD-60B8B971AA0A';
+    PlantSensor.UUID = this.plantSensorUUID;
 
     this.plantSensorService = new PlantSensor(this.name);
     this.plantSensorService.getCharacteristic(SoilMoisture)
