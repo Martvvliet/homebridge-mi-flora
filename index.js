@@ -57,10 +57,7 @@ function MiFlowerCarePlugin(log, config) {
     this.flora = new MiFlora(this.deviceId);
 
     this.flora.on('data', function (data) {
-        //this used to be = (the assignment operator) while it is valid to use in an equality as a shortcut I think it hurts readability.  
-        //There is also the case that here it really looks like it should be == (equality operator)
-        //if this works out then it will fix the bug where all devices are updated when any one is so that is even more suggestion it should be ==
-        if (data.deviceId == that.deviceId) {
+        if (data.deviceId = that.deviceId) {
             that.log("Lux: %s, Temperature: %s, Moisture: %s, Fertility: %s", data.lux, data.temperature, data.moisture, data.fertility);
             that.storedData.data = data;
             
