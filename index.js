@@ -280,7 +280,7 @@ MiFlowerCarePlugin.prototype.setUpServices = function () {
 
     // moisture characteristic
     SoilMoisture = function () {
-        Characteristic.call(this, 'Soil Moisture', this.moistureUUID);
+        Characteristic.call(this, 'Soil Moisture', 'C160D589-9510-4432-BAA6-5D9D77957138');
         this.setProps({
             format: Characteristic.Formats.UINT8,
             unit: Characteristic.Units.PERCENTAGE,
@@ -294,12 +294,12 @@ MiFlowerCarePlugin.prototype.setUpServices = function () {
 
     inherits(SoilMoisture, Characteristic);
 
-    SoilMoisture.UUID = this.moistureUUID;
+    SoilMoisture.UUID = 'C160D589-9510-4432-BAA6-5D9D77957138';
 
 
     // fertility characteristic
     SoilFertility = function () {
-        Characteristic.call(this, 'Soil Fertility', this.soilFertilityUUID);
+        Characteristic.call(this, 'Soil Fertility', '0029260E-B09C-4FD7-9E60-2C60F1250618');
         this.setProps({
             format: Characteristic.Formats.UINT8,
             maxValue: 10000,
@@ -312,12 +312,12 @@ MiFlowerCarePlugin.prototype.setUpServices = function () {
 
     inherits(SoilFertility, Characteristic);
 
-    SoilFertility.UUID = this.soilFertilityUUID;
+    SoilFertility.UUID = '0029260E-B09C-4FD7-9E60-2C60F1250618';
 
 
     // moisture sensor
     PlantSensor = function (displayName, subtype) {
-        Service.call(this, displayName, this.plantSensorUUID, subtype);
+        Service.call(this, displayName, '3C233958-B5C4-4218-A0CD-60B8B971AA0A', subtype);
 
         // Required Characteristics
         this.addCharacteristic(SoilMoisture);
@@ -329,7 +329,7 @@ MiFlowerCarePlugin.prototype.setUpServices = function () {
 
     inherits(PlantSensor, Service);
 
-    PlantSensor.UUID = this.plantSensorUUID;
+    PlantSensor.UUID = '3C233958-B5C4-4218-A0CD-60B8B971AA0A';
 
     this.plantSensorService = new PlantSensor(this.name);
     this.plantSensorService.getCharacteristic(SoilMoisture)
