@@ -29,7 +29,8 @@ function MiFlowerCarePlugin(log, config) {
     this.log = log;
     this.name = config.name;
     this.displayName = this.name;
-    this.deviceId = config.deviceId;
+    // normalize the deviceId to the same form as reported by the device.
+    this.deviceId = config.deviceId.toLowerCase().replace(/:/g, '');
     this.interval = Math.min(Math.max(config.interval, 1), 600);
 
     this.config = config;
@@ -57,7 +58,7 @@ function MiFlowerCarePlugin(log, config) {
     this.flora = new MiFlora(this.deviceId);
 
     this.flora.on('data', function (data) {
-        if (data.deviceId = that.deviceId) {
+        if (data.deviceId == that.deviceId) {
             that.log("Lux: %s, Temperature: %s, Moisture: %s, Fertility: %s", data.lux, data.temperature, data.moisture, data.fertility);
             that.storedData.data = data;
             
@@ -104,7 +105,7 @@ function MiFlowerCarePlugin(log, config) {
     });
 
     this.flora.on('firmware', function (data) {
-        if (data.deviceId = that.deviceId) {
+        if (data.deviceId == that.deviceId) {
             that.log("Firmware: %s, Battery level: %s", data.firmwareVersion, data.batteryLevel);
             that.storedData.firmware = data;
 
