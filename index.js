@@ -57,7 +57,7 @@ function MiFlowerCarePlugin(log, config) {
     this.flora = new MiFlora(this.deviceId);
 
     this.flora.on('data', function (data) {
-        if (data.deviceId = that.deviceId) {
+        if (data.deviceId == that.deviceId.toLowerCase().replace(/:/g, '')) {
             that.log("Lux: %s, Temperature: %s, Moisture: %s, Fertility: %s", data.lux, data.temperature, data.moisture, data.fertility);
             that.storedData.data = data;
             
@@ -104,7 +104,7 @@ function MiFlowerCarePlugin(log, config) {
     });
 
     this.flora.on('firmware', function (data) {
-        if (data.deviceId = that.deviceId) {
+        if (data.deviceId == that.deviceId.toLowerCase().replace(/:/g, '')) {
             that.log("Firmware: %s, Battery level: %s", data.firmwareVersion, data.batteryLevel);
             that.storedData.firmware = data;
 
